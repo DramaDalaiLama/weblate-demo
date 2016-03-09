@@ -1,0 +1,22 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "WeblateDemo": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "InstanceType": "t2.micro",
+        "ImageId": "ami-7abd0209",
+        "KeyName": "weblate",
+        "Tags": [
+          {"Key": "group", "Value": "webservers"}
+        ]
+      }
+    },
+    "WeblateDemoEIP": {
+      "Type": "AWS::EC2::EIP",
+      "Properties": {
+        "InstanceId": {"Ref": "WeblateDemo" }
+      }
+    },
+  }
+}
