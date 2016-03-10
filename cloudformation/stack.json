@@ -11,7 +11,8 @@
           "sg-b31908d6"
         ],
         "Tags": [
-          {"Key": "group", "Value": "webservers"}
+          {"Key": "group", "Value": "webservers"},
+          {"Key": "Name", "Value": "WeblateHost"}
         ]
       }
     },
