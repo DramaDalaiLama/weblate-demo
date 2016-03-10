@@ -10,5 +10,6 @@
 - name: Delete stack
   cloudformation:
     stack_name: "weblate-cloudformation"
+    template: "cloudformation/stack.json"
     state: "absent"
   when: delete_stack == "true"
