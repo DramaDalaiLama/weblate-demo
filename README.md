@@ -10,6 +10,10 @@ export EC2_SECRET_KEY=yourawssecretkey
 export EC2_REGION=yourawsregion
 
 To create cloudformation stack run
-# ansible-playbook -i 127.0.0.1, cloudformation.yml -vvvv
+'''bash
+ansible-playbook -i 127.0.0.1, cloudformation.yml -vvvv
+'''
 To delete stack
-# sansible-playbook -i 127.0.0.1, cloudformation.yml -vvvv -e "delete_stack=true"
+'''bash
+ansible-playbook -i 127.0.0.1, cloudformation.yml -vvvv -e "delete_stack=true"
+'''
