@@ -1,0 +1,9 @@
+#Provision AWS environment with CloudFormation.
+
+- hosts: 127.0.0.1
+  connection: local
+  gather_facts: false
+  max_fail_percentage: 0
+
+  roles:
+    - cloudformation

@@ -21,6 +21,6 @@
       "Properties": {
         "InstanceId": {"Ref": "WeblateDemo" }
       }
-    },
+    }
   }
 }

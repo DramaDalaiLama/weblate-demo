@@ -1,0 +1,14 @@
+---
+
+- name: Create or update stack
+  cloudformation:
+    stack_name: "weblate-cloudformation"
+    state: "present"
+    template: "cloudformation/stack.json"
+  when: delete_stack != "true"
+
+- name: Delete stack
+  cloudformation:
+    stack_name: "weblate-cloudformation"
+    state: "absent"
+  when: delete_stack == "true"
