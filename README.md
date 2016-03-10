@@ -5,9 +5,11 @@ boto
 
 Before running any of the playbooks export these environment varibles
 
+```bash
 export EC2_ACCESS_KEY=yourawsaccesskey
 export EC2_SECRET_KEY=yourawssecretkey
 export EC2_REGION=yourawsregion
+```
 
 To create cloudformation stack run
 ```bash
