@@ -7,6 +7,9 @@
         "InstanceType": "t2.micro",
         "ImageId": "ami-7abd0209",
         "KeyName": "weblate",
+        "SecurityGroupIds": [
+          "sg-b31908d6"
+        ],
         "Tags": [
           {"Key": "group", "Value": "webservers"}
         ]
