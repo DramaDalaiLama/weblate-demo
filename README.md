@@ -3,7 +3,7 @@
 Prerequisites:
 boto
 
-Before running any of the playbooks export these environment varibles
+Before running any of the playbooks export these environment variables
 
 ```bash
 export EC2_ACCESS_KEY=yourawsaccesskey
