@@ -4,7 +4,7 @@ import json
 import argparse
 import sys
 import os
-import yaml
+# import yaml
 import boto
 from boto import ec2
 
@@ -22,49 +22,12 @@ def parse_args():
     group.add_argument('--list', action='store_true')
     return parser.parse_args()
 
-# Now print out ansible-readable json
-# def get_asg_tag(tag_name):
-#     asg_tags = asg.get_all_tags()
-#     for tag in asg_tags:
-#         if tag.key == tag_name:
-#             return tag.value
-
-# Output must be dict
-def host_vars():
-    host_vars = {}
-    for res in con.get_all_instances():
-        for inst in res.instances:
-            if inst.state == "running":
-                ssh_host = {"ansible_ssh_host" : inst.ip_address}
-                host = {inst.id : ssh_host}
-                host_vars.update(host)
-    return(host_vars)
-
-# TODO: do something about this cycle in host_vars and host_list functions.
-
-def host_group_list():
-    host_group_list = []
-
-
-# Output must be list
 def host_list():
-    host_list = []
-    for res in con.get_all_instances():
-        for inst in res.instances:
-            if "type" in inst.tags.keys() and inst.state == "running":
-                if inst.tags['type'] == cfg['environment_type']:
-                    host = inst.id
-                    host_list.append(host)
-    return(host_list)
-
-def host_vars():
     host_vars = {}
-    host_groups = {}
-    host_list = []
     ansible_hosts = {}
     for res in con.get_all_instances():
         for inst in res.instances:
-            if inst.state == "running":
+            if inst.state == "running": # TODO change this to filter in API requests
                 # Add dict values with instance id and ip address for ssh
                 ssh_host = {"ansible_ssh_host" : inst.ip_address}
                 host = {inst.id : ssh_host}
@@ -72,28 +35,24 @@ def host_vars():
 
                 # Form group lists with instance id's
                 try:
-                    host_groups.update({inst.tags['group']: {
-                        "hosts": [].append(inst.id)             #make this idea work somehow
-                    }})
+                    ansible_hosts[inst.tags['group']].append(inst.id)
+                except: # if host group doesn't exist
+                    ansible_hosts.update({inst.tags['group']: []})
+                    ansible_hosts[inst.tags['group']].append(inst.id)
+    # Make final inventory list
+    ansible_hosts.update({
+        "_meta" : {
+            "hostvars": host_vars
+        }
+    })
 
-
-    return(host_vars)
+    return(ansible_hosts)
 
 
 def main():
     args = parse_args()
-    host_group = "cfg['client_name']+"-"+cfg['environment_type']
-    h_list=host_list()
-    ansible_hosts = {
-        "_meta" : {
-            "hostvars" : host_vars()
-        },
-        host_group : {
-            "hosts" : h_lists
-        }
-    }
     if args.list:
-        json.dump(ansible_hosts, sys.stdout)
+        json.dump(host_list(), sys.stdout)
 
 if __name__ == '__main__':
     main()
