@@ -1,0 +1,14 @@
+#Provision weblate to "webservers" group
+
+- hosts: webservers
+  gather_facts: true
+  user: "centos"
+  sudo: true
+  max_fail_percentage: 0
+
+  roles:
+    - weblate-server
+    # - nginx
+
+  vars_files:
+    - group_vars/webservers

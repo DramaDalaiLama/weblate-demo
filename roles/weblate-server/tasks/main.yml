@@ -1,0 +1,21 @@
+---
+
+- name: Create weblate user and home directory
+  user: name={{ weblate_user }} home={{ weblate_user_home }} group=root
+
+- name: Install epel-release and mysql repos
+  yum: name={{ item }} state=installed
+  with_items:
+    - epel-release
+    - http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+
+- name: Install essential packages
+  yum: name={{ item }} state=installed
+  with_items:
+    - python-pip
+    - python-virtualenv
+    - mysql-server
+    - git
+
+- name: Start up mysql server
+  service: name=mysqld state=started enabled=yes
