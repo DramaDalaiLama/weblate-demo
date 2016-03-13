@@ -15,7 +15,36 @@
     - python-pip
     - python-virtualenv
     - mysql-server
+    - python-devel
     - git
+    - wget
+    - gcc
+    - libxml2-devel
+    - libxslt-devel
+    - zlib-devel
+    - libjpeg-turbo-devel
+    - libtiff-devel
+    - freetype-devel
+    - lcms2-devel
+    - libwebp-devel
+    - tcl-devel
+    - openjpeg-devel
+
 
 - name: Start up mysql server
   service: name=mysqld state=started enabled=yes
+
+- git: repo=https://github.com/nijel/weblate.git
+       dest={{ weblate_user_home }}/weblate
+       version={{ weblate_version }}
+  become: yes
+  become_user: "{{ weblate_user }}"
+
+- name: Create virtualenv
+  pip: requirements={{ weblate_user_home }}/weblate/requirements.txt virtualenv={{ weblate_user_home }}/venv
+  become: yes
+  become_user: "{{ weblate_user }}"
+
+- template: src=templates/bashrc.j2 dest={{ weblate_user_home }}/.bashrc
+  become: yes
+  become_user: "{{ weblate_user }}"

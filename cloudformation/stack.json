@@ -4,7 +4,7 @@
     "WeblateDemo": {
       "Type": "AWS::EC2::Instance",
       "Properties": {
-        "InstanceType": "t2.micro",
+        "InstanceType": "t2.small",
         "ImageId": "ami-7abd0209",
         "KeyName": "weblate",
         "SecurityGroupIds": [
