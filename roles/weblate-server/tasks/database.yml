@@ -5,7 +5,7 @@
               priv=weblate.*:ALL
               state=present
 
-- mysql_db: name=weblate encoding=utf8mb4
+- mysql_db: name=weblate encoding=utf8
 
 - name: Install mysql-python to venv
   pip: name=MySQL-python virtualenv={{ weblate_user_home }}/venv
