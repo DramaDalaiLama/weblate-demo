@@ -49,11 +49,11 @@
   become: yes
   become_user: "{{ weblate_user }}"
 
-- template: src=templates/bashrc.j2 dest={{ weblate_user_home }}/.bashrc
+- template: src=bashrc.j2 dest={{ weblate_user_home }}/.bashrc
   become: yes
   become_user: "{{ weblate_user }}"
 
-- template: src=templates/settings.py.j2 dest={{ weblate_user_home }}/weblate/weblate/settings.py
+- template: src=settings.py.j2 dest={{ weblate_user_home }}/weblate/weblate/settings.py
   become: yes
   become_user: "{{ weblate_user }}"
 
