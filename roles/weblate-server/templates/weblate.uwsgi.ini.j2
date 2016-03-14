@@ -2,9 +2,9 @@
 plugins       = python
 master        = true
 protocol      = uwsgi
-socket        = 127.0.0.1:8080
-wsgi-file     = {{ weblate_user_home }}/weblate/wsgi.py
-python-path   = {{ weblate_user_home }}
+socket        = 127.0.0.1:8008
+wsgi-file     = {{ weblate_user_home }}/weblate/weblate/wsgi.py
+python-path   = {{ weblate_user_home }}/weblate
 # Needed for OAuth/OpenID
 buffer-size   = 8192
 # Increase number of workers for heavily loaded sites
