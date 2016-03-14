@@ -13,14 +13,14 @@
   become_user: "{{ weblate_user }}"
 
 - name: Generating tables
-  shell: ./manage.py migrate
+  shell: ./manage.py migrate --noinput
   args:
     chdir: "{{ weblate_user_home }}/weblate"
   become: yes
   become_user: "{{ weblate_user }}"
 
 - name: Collect static files
-  shell: ./manage.py collectstatic
+  shell: ./manage.py collectstatic --noinput
   args:
     chdir: "{{ weblate_user_home }}/weblate"
   become: yes

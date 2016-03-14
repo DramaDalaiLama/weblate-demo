@@ -1,0 +1,27 @@
+server {
+	listen 80;
+	server_name weblate;
+	root {{ weblate_user_home }}/weblate;
+
+	location /favicon.ico {
+		alias {{ weblate_user_home }}/data/static/favicon.ico;
+		expires 30d;
+	}
+
+	location /robots.txt {
+		alias {{ weblate_user_home }}/data/static/robots.txt;
+		expires 30d;
+	}
+
+	location /static {
+		alias {{ weblate_user_home }}/data/static/;
+		expires 30d;
+	}
+
+	location / {
+		include uwsgi_params;
+        # Needed for long running operations in admin interface
+        uwsgi_read_timeout 3600;
+		uwsgi_pass 127.0.0.1:8080;
+	}
+}

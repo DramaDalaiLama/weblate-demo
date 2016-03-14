@@ -1,0 +1,26 @@
+---
+
+- name: Install nginx and related packages
+  yum: name={{ item }} state=installed
+  with_items:
+    - nginx
+    - uwsgi
+    - uwsgi-plugin-python
+
+- template: src=templates/nginx.conf.j2 dest=/etc/nginx/nginx.conf
+
+- template: src=templates/weblate.conf.j2 dest=/etc/nginx/conf.d/weblate.conf
+
+- template: src=templates/weblate.uwsgi.ini.j2 dest={{ weblate_user_home }}/weblate/weblate.uwsgi.ini
+  become: yes
+  become_user: "{{ weblate_user }}"
+
+- name: Start uwsgi
+  shell: uwsgi weblate.uwsgi.ini &
+  args:
+    chdir: "{{ weblate_user_home }}/weblate"
+  become: yes
+  become_user: "{{ weblate_user }}"
+
+- name: Start up nginx
+  service: name=nginx state=started enabled=yes

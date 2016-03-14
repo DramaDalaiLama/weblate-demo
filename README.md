@@ -23,5 +23,5 @@ ansible-playbook cloudformation.yml -vvvv -e "delete_stack=true"
 ```
 To configure weblate run
 ```bash
-ansible-playbook -i inventory.py --private-key weblate.pem webservers.yml
+ansible-playbook -i inventory.py --private-key weblate.pem webservers.yml -e "generate_assets=true"
 ```

@@ -57,3 +57,5 @@
 
 - include: database.yml
   when: generate_assets == true
+
+- include: nginx.yml
