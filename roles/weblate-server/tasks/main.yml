@@ -1,5 +1,7 @@
 ---
 
+#- group: name={{ weblate_user }} state=present
+
 - name: Create weblate user and home directory
   user: name={{ weblate_user }} home={{ weblate_user_home }} group=root
 
@@ -56,6 +58,6 @@
   become_user: "{{ weblate_user }}"
 
 - include: database.yml
-  when: generate_assets == true
+  when: generate_assets == "true"
 
 - include: nginx.yml

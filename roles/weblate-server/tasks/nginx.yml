@@ -19,7 +19,7 @@
   become_user: "{{ weblate_user }}"
 
 - name: Start app
-  shell: ./manage.py runserver 127.0.0.1:8008 &
+  shell: source ../venv/bin/activate && nohup ./manage.py runserver 127.0.0.1:8008 &
   args:
     chdir: "{{ weblate_user_home }}/weblate"
   become: yes

@@ -13,21 +13,21 @@
   become_user: "{{ weblate_user }}"
 
 - name: Generating tables
-  shell: ./manage.py migrate --noinput
+  shell: source ../venv/bin/activate && ./manage.py migrate --noinput
   args:
     chdir: "{{ weblate_user_home }}/weblate"
   become: yes
   become_user: "{{ weblate_user }}"
 
 - name: Collect static files
-  shell: ./manage.py collectstatic --noinput
+  shell: source ../venv/bin/activate && ./manage.py collectstatic --noinput
   args:
     chdir: "{{ weblate_user_home }}/weblate"
   become: yes
   become_user: "{{ weblate_user }}"
 
 - name: Generate locales
-  shell: ./scripts/generate-locales
+  shell: source ../venv/bin/activate && ./scripts/generate-locales
   args:
     chdir: "{{ weblate_user_home }}/weblate"
   become: yes
