@@ -1,0 +1,34 @@
+# Create database structure
+---
+
+- mysql_user: name={{ weblate_user }} password={{ database_password }} host=localhost
+              priv=weblate.*:ALL
+              state=present
+
+- mysql_db: name=weblate encoding=utf8mb4
+
+- name: Install mysql-python to venv
+  pip: name=MySQL-python virtualenv={{ weblate_user_home }}/venv
+  become: yes
+  become_user: "{{ weblate_user }}"
+
+- name: Generating tables
+  shell: ./manage.py migrate
+  args:
+    chdir: "{{ weblate_user_home }}/weblate"
+  become: yes
+  become_user: "{{ weblate_user }}"
+
+- name: Collect static files
+  shell: ./manage.py collectstatic
+  args:
+    chdir: "{{ weblate_user_home }}/weblate"
+  become: yes
+  become_user: "{{ weblate_user }}"
+
+- name: Generate locales
+  shell: ./scripts/generate-locales
+  args:
+    chdir: "{{ weblate_user_home }}/weblate"
+  become: yes
+  become_user: "{{ weblate_user }}"

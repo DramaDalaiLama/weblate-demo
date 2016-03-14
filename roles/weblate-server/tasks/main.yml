@@ -29,6 +29,8 @@
     - libwebp-devel
     - tcl-devel
     - openjpeg-devel
+    - MySQL-python
+    - mysql-devel
 
 
 - name: Start up mysql server
@@ -48,3 +50,10 @@
 - template: src=templates/bashrc.j2 dest={{ weblate_user_home }}/.bashrc
   become: yes
   become_user: "{{ weblate_user }}"
+
+- template: src=templates/settings.py.j2 dest={{ weblate_user_home }}/weblate/weblate/settings.py
+  become: yes
+  become_user: "{{ weblate_user }}"
+
+- include: database.yml
+  when: generate_assets == true
