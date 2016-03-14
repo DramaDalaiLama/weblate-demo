@@ -25,3 +25,10 @@ To configure weblate run
 ```bash
 ansible-playbook -i inventory.py --private-key weblate.pem webservers.yml -e "generate_assets=true"
 ```
+Selinux is disabled by default
+Some kind of a fix is
+```bash
+grep nginx /var/log/audit/audit.log | audit2allow -M nginx
+semodule -i nginx.pp
+```
+taken from http://axilleas.me/en/blog/2013/selinux-policy-for-nginx-and-gitlab-unix-socket-in-fedora-19/

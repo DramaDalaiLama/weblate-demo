@@ -27,3 +27,6 @@
 
 - name: Start up nginx
   service: name=nginx state=started enabled=yes
+
+- name: WARNING! DISABLING SELINUX!
+  shell: setenforce 0
