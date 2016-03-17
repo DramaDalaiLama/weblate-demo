@@ -3,9 +3,11 @@
 - name: Create ftp group
   group: name=ftp_users state=present
 
+- name: Create directory
+  file: name=/var/www state=directory
+
 - name: Create ftp user
   user: name={{ ftp_user }} group=ftp_users password={{ ftp_password }} home=/var/www/ftp state=present shell=/sbin/nologin
-  sudo: true
 
 - name: Install vsftpd
   yum: name=vsftpd state=present
