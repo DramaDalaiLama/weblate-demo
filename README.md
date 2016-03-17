@@ -23,7 +23,7 @@ ansible-playbook cloudformation.yml -vvvv -e "delete_stack=true"
 ```
 To configure weblate run
 ```bash
-ansible-playbook -i inventory.py --private-key weblate.pem webservers.yml -e "generate_assets=true"
+ansible-playbook -i inventory.py --private-key weblate.pem webservers.yml -e "generate_assets=true" --ask-vault-pass
 ```
 Selinux is disabled by default
 Some kind of a fix is
