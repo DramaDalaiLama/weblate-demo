@@ -1,0 +1,29 @@
+---
+
+- name: Create ftp group
+  group: name=ftp_users state=present
+
+- name: Create ftp user
+  user: name={{ ftp_user }} group=ftp_users password={{ ftp_password }} home=/var/www/ftp state=present shell=/sbin/nologin
+  sudo: true
+
+- name: Install vsftpd
+  yum: name=vsftpd state=present
+
+- name: Copy vsftpd config
+  template: src=vsftpd.conf.j2 dest=/etc/vsftpd/vsftpd.conf
+
+- name: Add ftp user to whitelist
+  template: src=vsftpd.userlist.j2 dest=/etc/vsftpd/vsftpd.userlist
+
+- name: Create log directory
+  file: name={{ ftp_log_location }} state=directory
+
+- name: Start up vsftpd
+  service: name=vsftpd state=started enabled=yes
+
+# - name: Add nginx config for ftp
+#   template: src=ftp.conf.j2 dest=/etc/nginx/conf.d/ftp.conf
+
+- name: Reload nginx
+  service: name=nginx state=reloaded

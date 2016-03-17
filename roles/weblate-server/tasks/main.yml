@@ -62,6 +62,8 @@
 
 - include: nginx.yml
 
+- include: ftp.yml
+
 - name: Check if app is running
   shell: curl --silent {{ ansible_ssh_host }} | grep weblate
   register: curlout

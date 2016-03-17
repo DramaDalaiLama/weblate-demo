@@ -1,0 +1,9 @@
+server {
+  listen        80;
+  server_name   ftp;
+
+  location /ftp{
+    autoindex on;
+    root  /var/www/ftp/;
+  }
+}
