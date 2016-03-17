@@ -61,3 +61,8 @@
   when: generate_assets == "true"
 
 - include: nginx.yml
+
+- name: Check if app is running
+  shell: curl --silent {{ ansible_ssh_host }} | grep weblate
+  register: curlout
+  failed_when: curlout.stdout == ""
